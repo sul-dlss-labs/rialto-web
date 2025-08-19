@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   root 'home#show'
 
-  get 'orcid', to: 'public#orcid'
+  get 'public/:action', controller: 'public'
+  get 'stanford/:action', controller: 'stanford'
+  get 'restricted/:action', controller: 'restricted'
 end

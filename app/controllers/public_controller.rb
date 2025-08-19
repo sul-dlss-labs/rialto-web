@@ -5,6 +5,6 @@ class PublicController < ApplicationController
   allow_unauthenticated_access
   skip_verify_authorized
 
-  def orcid
+  def index
   end
 end
