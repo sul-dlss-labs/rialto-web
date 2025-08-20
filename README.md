@@ -1,6 +1,6 @@
 # RIATLO Web App
 
-Test RIALTO Web App 2026
+Test RIALTO Web App 2025
 
 ## Setup
 
@@ -14,8 +14,21 @@ rails db:migrate
 rails s
 ```
 
-## Simulate a workgroup
+## Simulate logged in users
+
+A logged in user:
 
 ```
-ROLES=rialto rails s
+REMOTE_USER=peter rails s
+```
+
+A logged in user in a single workgroup:
+
+```
+REMOTE_USER=peter ROLES=sul:rialto rails s
+```
+
+A logged in user in multiple workgroup:
+```
+REMOTE_USER=peter ROLES=sul:rialto;sul:dlss rails s
 ```

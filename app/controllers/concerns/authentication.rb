@@ -17,12 +17,12 @@ module Authentication
   #  - X-Person-Formal-Name (full name)
 
   MAX_URL_SIZE = ActionDispatch::Cookies::MAX_COOKIE_SIZE / 2
-  SHIBBOLETH_LOGOUT_PATH = '/Shibboleth.sso/Logout'
+  SHIBBOLETH_LOGOUT_PATH = "/Shibboleth.sso/Logout"
 
-  USER_GROUPS_HEADER = 'X-Groups'
-  FIRST_NAME_HEADER =  'X-Person-Name'
-  FULL_NAME_HEADER = 'X-Person-Formal-Name'
-  REMOTE_USER_HEADER = 'X-Remote-User'
+  USER_GROUPS_HEADER = "X-Groups"
+  FIRST_NAME_HEADER =  "X-Person-Name"
+  FULL_NAME_HEADER = "X-Person-Formal-Name"
+  REMOTE_USER_HEADER = "X-Remote-User"
 
   included do
     # authentication will be called before require_authentication.
@@ -47,7 +47,7 @@ module Authentication
   private
 
   def remote_user
-    return Settings.seed_user.email_address if Rails.env.development?
+    return ENV.fetch("REMOTE_USER", nil) if Rails.env.development?
 
     request.headers[REMOTE_USER_HEADER]
   end
@@ -63,7 +63,7 @@ module Authentication
   end
 
   def start_new_session?
-    return true if Rails.env.development?
+    return true if Rails.env.development? && remote_user
 
     Rails.env.test? && user_attrs[:email_address].present?
   end
@@ -95,13 +95,17 @@ module Authentication
 
   def start_new_session
     # Create or update a user based on the headers provided by Apache.
-    results = User.upsert(user_attrs, unique_by: :email_address) # rubocop:disable Rails/SkipsModelValidations
+    results = User.upsert(user_attrs, unique_by: :email_address)
     # This cookie will be used to authenticate Action Cable connections.
     cookies.signed.permanent[:user_id] = { value: results.rows[0][0], httponly: true, same_site: :lax }
   end
 
-  def user_attrs # rubocop:disable Metrics/AbcSize
-    return Settings.seed_user.to_h if Rails.env.development?
+  def user_attrs
+    return {
+        email_address: remote_user,
+        name: "User",
+        first_name: "Test"
+      } if Rails.env.development?
 
     {
       email_address: request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user],
@@ -113,25 +117,12 @@ module Authentication
   # This looks first in the session for groups, and then to the headers.
   # This allows the application session to outlive the shibboleth session
   def groups_from_session
-    set_groups_for_emulate_not_admin
-    return ENV.fetch('ROLES', '').split(';') if Rails.env.development?
+    return ENV.fetch("ROLES", "").split(";") if Rails.env.development?
     return [] unless authenticated?
 
-    session['groups'] ||= begin
-      raw_header = request.headers[USER_GROUPS_HEADER] || ''
-      raw_header.split(';')
-    end
-  end
-
-  def set_groups_for_emulate_not_admin
-    # This cookie is set from the emulate admin page.
-    if cookies[:emulate_not_admin]
-      session['groups'] = ['emulating_not_admin']
-    # The absence of the cookie but the presence of the "emulating_not_admin" group indicates
-    # that should revert to normal groups.
-    # The cookie may be deleted by the user or when there is a new session.
-    elsif session['groups'] == ['emulating_not_admin']
-      session['groups'] = nil
+    session["groups"] ||= begin
+      raw_header = request.headers[USER_GROUPS_HEADER] || ""
+      raw_header.split(";")
     end
   end
 

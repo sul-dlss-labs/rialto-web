@@ -14,10 +14,6 @@ class RestrictedController < ApplicationController
   end
 
   def self.policy_name
-    'RestrictedPolicy'
-  end
-
-  def implicit_authorization_target
-    self
+    "RestrictedPolicy"
   end
 end

@@ -47,6 +47,19 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  gem "erb_lint", require: false
+  gem "factory_bot_rails"
+  gem "rspec_junit_formatter" # used by CircleCI
+  gem "rspec-rails"
+  gem "rubocop", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-factory_bot", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubocop-rspec_rails", require: false
+  gem "simplecov", require: false
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
@@ -63,5 +76,6 @@ group :test do
 end
 
 # Additional gems
-gem 'action_policy'
-gem 'config'
+gem "action_policy"
+gem "config"
+gem "jwt"

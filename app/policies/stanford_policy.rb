@@ -1,5 +1,5 @@
 class StanfordPolicy < ApplicationPolicy
   def view?
-    !Current.groups.blank?
+    Current.user.present?
   end
 end

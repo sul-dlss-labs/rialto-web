@@ -4,7 +4,6 @@
 class StanfordController < ApplicationController
   before_action :check_authorization
 
-
   def index
   end
 
@@ -15,10 +14,6 @@ class StanfordController < ApplicationController
   end
 
   def self.policy_name
-    'StanfordPolicy'
-  end
-
-  def implicit_authorization_target
-    self
+    "StanfordPolicy"
   end
 end

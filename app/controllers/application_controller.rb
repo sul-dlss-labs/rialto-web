@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
   private
 
   def deny_access
-    flash[:warning] = 'You are not authorized'
+    flash[:warning] = "You are not authorized"
     redirect_to main_app.root_path
+  end
+
+  def implicit_authorization_target
+    self
   end
 end

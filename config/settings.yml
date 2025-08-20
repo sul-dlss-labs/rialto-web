@@ -1,2 +1,4 @@
 authorization_workgroup_names:
   rialto: 'sul:rialto'
+
+email_suffix: '@stanford.edu'
