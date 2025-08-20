@@ -14,6 +14,11 @@ rails db:migrate
 rails s
 ```
 
+Quick start with a logged in user with workgroup access:
+```
+bin/dev
+```
+
 ## Simulate logged in users
 
 A logged in user:
