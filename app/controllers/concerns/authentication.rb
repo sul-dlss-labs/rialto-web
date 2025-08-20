@@ -17,12 +17,12 @@ module Authentication
   #  - X-Person-Formal-Name (full name)
 
   MAX_URL_SIZE = ActionDispatch::Cookies::MAX_COOKIE_SIZE / 2
-  SHIBBOLETH_LOGOUT_PATH = "/Shibboleth.sso/Logout"
+  SHIBBOLETH_LOGOUT_PATH = '/Shibboleth.sso/Logout'
 
-  USER_GROUPS_HEADER = "X-Groups"
-  FIRST_NAME_HEADER =  "X-Person-Name"
-  FULL_NAME_HEADER = "X-Person-Formal-Name"
-  REMOTE_USER_HEADER = "X-Remote-User"
+  USER_GROUPS_HEADER = 'X-Groups'
+  FIRST_NAME_HEADER =  'X-Person-Name'
+  FULL_NAME_HEADER = 'X-Person-Formal-Name'
+  REMOTE_USER_HEADER = 'X-Remote-User'
 
   included do
     # authentication will be called before require_authentication.
@@ -47,7 +47,7 @@ module Authentication
   private
 
   def remote_user
-    return ENV.fetch("REMOTE_USER", nil) if Rails.env.development?
+    return ENV.fetch('REMOTE_USER', nil) if Rails.env.development?
 
     request.headers[REMOTE_USER_HEADER]
   end
@@ -95,34 +95,54 @@ module Authentication
 
   def start_new_session
     # Create or update a user based on the headers provided by Apache.
-    results = User.upsert(user_attrs, unique_by: :email_address)
+    results = User.upsert(user_attrs, unique_by: :email_address) # rubocop:disable Rails/SkipsModelValidations
     # This cookie will be used to authenticate Action Cable connections.
     cookies.signed.permanent[:user_id] = { value: results.rows[0][0], httponly: true, same_site: :lax }
   end
 
   def user_attrs
-    return {
-        email_address: remote_user,
-        name: "User",
-        first_name: "Test"
-      } if Rails.env.development?
+    return development_user_attrs if Rails.env.development?
 
+    production_user_attrs
+  end
+
+  def development_user_attrs
     {
-      email_address: request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user],
-      name: request.headers[FULL_NAME_HEADER] || request.cookies[:test_shibboleth_full_name],
-      first_name: request.headers[FIRST_NAME_HEADER] || request.cookies[:test_shibboleth_first_name]
+      email_address: remote_user,
+      name: 'User',
+      first_name: 'Test'
     }
+  end
+
+  def production_user_attrs
+    {
+      email_address: user_email,
+      name: user_full_name,
+      first_name: user_first_name
+    }
+  end
+
+  def user_email
+    request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user]
+  end
+
+  def user_full_name
+    request.headers[FULL_NAME_HEADER] || request.cookies[:test_shibboleth_full_name]
+  end
+
+  def user_first_name
+    request.headers[FIRST_NAME_HEADER] || request.cookies[:test_shibboleth_first_name]
   end
 
   # This looks first in the session for groups, and then to the headers.
   # This allows the application session to outlive the shibboleth session
   def groups_from_session
-    return ENV.fetch("ROLES", "").split(";") if Rails.env.development?
+    return ENV.fetch('ROLES', '').split(';') if Rails.env.development?
     return [] unless authenticated?
 
-    session["groups"] ||= begin
-      raw_header = request.headers[USER_GROUPS_HEADER] || ""
-      raw_header.split(";")
+    session['groups'] ||= begin
+      raw_header = request.headers[USER_GROUPS_HEADER] || ''
+      raw_header.split(';')
     end
   end
 

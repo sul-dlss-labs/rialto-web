@@ -5,6 +5,5 @@ class PublicController < ApplicationController
   allow_unauthenticated_access
   skip_verify_authorized
 
-  def index
-  end
+  def index; end
 end

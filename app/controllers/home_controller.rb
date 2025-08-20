@@ -5,6 +5,5 @@ class HomeController < ApplicationController
   allow_unauthenticated_access
   skip_verify_authorized
 
-  def show
-  end
+  def show; end
 end

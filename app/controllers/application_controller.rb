@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Base controller from which all other controllers inherit
 class ApplicationController < ActionController::Base
   # By default, requires authentication for all controllers.
   # To allow unauthenticated access, use the allow_unauthenticated_access method.
@@ -16,7 +19,7 @@ class ApplicationController < ActionController::Base
   private
 
   def deny_access
-    flash[:warning] = "You are not authorized"
+    flash[:warning] = 'You are not authorized'
     redirect_to main_app.root_path
   end
 

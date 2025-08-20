@@ -4,16 +4,15 @@
 class StanfordController < ApplicationController
   before_action :check_authorization
 
-  def index
+  def index; end
+
+  def self.policy_name
+    'StanfordPolicy'
   end
 
   private
 
   def check_authorization
     authorize! to: :view?
-  end
-
-  def self.policy_name
-    "StanfordPolicy"
   end
 end
