@@ -2,3 +2,9 @@ authorization_workgroup_names:
   rialto: 'sul:rialto'
 
 email_suffix: '@stanford.edu'
+
+tableau:
+  client_id: CLIENT_ID_HERE
+  client_secret_id: CLIENT_SECRET_ID_HERE
+  client_secret_value: CLIENT_SECRET_VALUE_HERE
+  token_expiry_time_seconds: 600

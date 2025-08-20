@@ -100,10 +100,14 @@ module Authentication
     cookies.signed.permanent[:user_id] = { value: results.rows[0][0], httponly: true, same_site: :lax }
   end
 
-  def user_attrs
+  def user_attrs # rubocop:disable Metrics/AbcSize
     return development_user_attrs if Rails.env.development?
 
-    production_user_attrs
+    {
+      email_address: request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user],
+      name: request.headers[FULL_NAME_HEADER] || request.cookies[:test_shibboleth_full_name],
+      first_name: request.headers[FIRST_NAME_HEADER] || request.cookies[:test_shibboleth_first_name]
+    }
   end
 
   def development_user_attrs
@@ -112,26 +116,6 @@ module Authentication
       name: 'User',
       first_name: 'Test'
     }
-  end
-
-  def production_user_attrs
-    {
-      email_address: user_email,
-      name: user_full_name,
-      first_name: user_first_name
-    }
-  end
-
-  def user_email
-    request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user]
-  end
-
-  def user_full_name
-    request.headers[FULL_NAME_HEADER] || request.cookies[:test_shibboleth_full_name]
-  end
-
-  def user_first_name
-    request.headers[FIRST_NAME_HEADER] || request.cookies[:test_shibboleth_first_name]
   end
 
   # This looks first in the session for groups, and then to the headers.
