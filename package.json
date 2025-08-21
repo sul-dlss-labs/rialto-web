@@ -1,0 +1,8 @@
+{
+  "name": "rialto-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sul-dlss-labs/rialto-web.git",
+  "author": "Peter Mangiafico <peter@mangiafico.org>",
+  "license": "MIT"
+}
