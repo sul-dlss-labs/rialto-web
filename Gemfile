@@ -86,3 +86,4 @@ end
 gem 'action_policy'
 gem 'config'
 gem 'jwt'
+gem 'okcomputer'
