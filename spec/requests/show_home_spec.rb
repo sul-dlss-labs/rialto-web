@@ -3,8 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Show home page' do
+  let(:name) { 'Awesome Dude' }
+
   context 'when user is logged in' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, name:) }
 
     before do
       sign_in(user)
@@ -14,7 +16,7 @@ RSpec.describe 'Show home page' do
       get '/'
 
       expect(response.body).to include('RIALTO Web App Home Page')
-      expect(response.body).to include('Logged in: User')
+      expect(response.body).to include("Logged in: #{name}")
     end
   end
 
@@ -23,7 +25,7 @@ RSpec.describe 'Show home page' do
       get '/'
 
       expect(response.body).to include('RIALTO Web App Home Page')
-      expect(response.body).not_to include('Logged in: User')
+      expect(response.body).not_to include("Logged in: #{name}")
     end
   end
 end

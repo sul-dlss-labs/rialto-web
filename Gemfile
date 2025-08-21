@@ -75,6 +75,13 @@ group :test do
   gem 'webmock'
 end
 
+group :deployment do
+  gem 'capistrano-maintenance', '~> 1.2', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: false
+  gem 'dlss-capistrano', require: false
+end
+
 # Additional gems
 gem 'action_policy'
 gem 'config'

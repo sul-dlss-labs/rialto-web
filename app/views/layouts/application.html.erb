@@ -32,10 +32,10 @@
       <% end %>
       <ul>
         <li><%= link_to 'public', controller: :public, action: :index %></li>
-        <% if current_user.present? && allowed_to?(:view?, :stanford) %>
+        <% if authenticated? && allowed_to?(:view?, :stanford) %>
           <li><%= link_to 'stanford', controller: :stanford, action: :index %></li>
         <% end %>
-        <% if current_user.present? && allowed_to?(:view?, :restricted) %>
+        <% if authenticated? && allowed_to?(:view?, :restricted) %>
           <li><%= link_to 'restricted', controller: :restricted, action: :index %></li>
         <% end %>
       </ul>
