@@ -98,15 +98,20 @@ module Authentication
     results = User.upsert(user_attrs, unique_by: :email_address) # rubocop:disable Rails/SkipsModelValidations
     # This cookie will be used to authenticate Action Cable connections.
     cookies.signed.permanent[:user_id] = { value: results.rows[0][0], httponly: true, same_site: :lax }
+    cookies.signed[:jwt] = { value: jwt_token, httponly: true, secure: Rails.env.production? }
+  end
+
+  def jwt_token
+    JwtService.encode(groups_from_session).encoded_payload
   end
 
   def user_attrs # rubocop:disable Metrics/AbcSize
     return development_user_attrs if Rails.env.development?
 
     {
-      email_address: request.headers[REMOTE_USER_HEADER] || request.cookies[:test_shibboleth_remote_user],
-      name: request.headers[FULL_NAME_HEADER] || request.cookies[:test_shibboleth_full_name],
-      first_name: request.headers[FIRST_NAME_HEADER] || request.cookies[:test_shibboleth_first_name]
+      email_address: request.headers[REMOTE_USER_HEADER] || request.cookies['test_shibboleth_remote_user'],
+      name: request.headers[FULL_NAME_HEADER] || request.cookies['test_shibboleth_full_name'],
+      first_name: request.headers[FIRST_NAME_HEADER] || request.cookies['test_shibboleth_first_name']
     }
   end
 

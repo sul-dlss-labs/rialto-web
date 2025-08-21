@@ -4,8 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'Show public page' do
   context 'when user is logged in' do
+    let(:user) { create(:user) }
+
     before do
-      sign_in(create(:user))
+      sign_in(user)
     end
 
     it 'shows the public page with logged in message' do

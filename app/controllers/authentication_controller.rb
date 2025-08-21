@@ -16,11 +16,10 @@ class AuthenticationController < ApplicationController
   # This endpoint is only available in the test environment.
   def test_login # rubocop:disable Metrics/AbcSize
     user = User.find(params[:id])
-    cookies[:test_shibboleth_remote_user] = user.email_address
-    cookies[:test_shibboleth_full_name] = user.name
-    cookies[:test_shibboleth_first_name] = user.first_name
-    cookies[:test_shibboleth_groups] = params[:groups] if params[:groups].present?
-
+    cookies['test_shibboleth_remote_user'] = user.email_address
+    cookies['test_shibboleth_full_name'] = user.name
+    cookies['test_shibboleth_first_name'] = user.first_name
+    cookies['test_shibboleth_groups'] = params[:groups] if params[:groups].present?
     head :ok
   end
 
