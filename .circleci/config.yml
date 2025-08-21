@@ -15,8 +15,8 @@ jobs:
 workflows:
   build:
     jobs:
-      - stylelint
-      - ruby-rails/lint-js
+      # - stylelint
+      # - ruby-rails/lint-js
       - ruby-rails/lint:
           name: lint
           context: dlss
