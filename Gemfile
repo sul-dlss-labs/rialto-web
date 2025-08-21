@@ -79,6 +79,7 @@ group :deployment do
   gem 'capistrano-maintenance', '~> 1.2', require: false
   gem 'capistrano-passenger', require: false
   gem 'capistrano-rails', require: false
+  gem 'capistrano-shell'
   gem 'dlss-capistrano', require: false
 end
 
@@ -87,3 +88,4 @@ gem 'action_policy'
 gem 'config'
 gem 'jwt'
 gem 'okcomputer'
+gem 'honeybadger'
