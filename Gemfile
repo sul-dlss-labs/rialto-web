@@ -86,6 +86,6 @@ end
 # Additional gems
 gem 'action_policy'
 gem 'config'
+gem 'honeybadger'
 gem 'jwt'
 gem 'okcomputer'
-gem 'honeybadger'

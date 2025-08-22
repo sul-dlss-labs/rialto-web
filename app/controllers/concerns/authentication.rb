@@ -126,13 +126,13 @@ module Authentication
   # This looks first in the session for groups, and then to the headers.
   # This allows the application session to outlive the shibboleth session
   def groups_from_session
-    return ENV.fetch('ROLES', '').split(';') if Rails.env.development?
+    return ENV.fetch('ROLES', '').split(';').compact.uniq if Rails.env.development?
     return [] unless authenticated?
 
     session['groups'] ||= begin
       raw_header = request.headers[USER_GROUPS_HEADER] || ''
       raw_header.split(';')
-    end
+    end.compact.uniq
   end
 
   def terminate_session

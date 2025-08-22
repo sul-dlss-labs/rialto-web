@@ -8,7 +8,7 @@ class JwtService
                 'jti' => SecureRandom.uuid,
                 'aud' => 'tableau',
                 'https://tableau.com/oda' => true,
-                'https://tableau.com/groups' => groups << 'stanford' }
+                'https://tableau.com/groups' => groups }
     header =  { 'kid' => Settings.tableau.client_secret_id,
                 'iss' => Settings.tableau.client_id, 'alg' => 'HS256' }
 
