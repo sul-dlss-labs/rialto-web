@@ -23,11 +23,13 @@ bin/dev
 
 ### Simulate logged in users
 
-A logged in user:
+Note that the login button doesn't do anything in localhost since shib is not available.  You can simulate
+a logged in shib user with an environment variable:
 
 ```
 REMOTE_USER=peter rails s
 ```
+
 
 A logged in user in a single workgroup:
 

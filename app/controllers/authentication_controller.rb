@@ -8,6 +8,8 @@ class AuthenticationController < ApplicationController
   # See Authentication concern for the methods used below.
 
   def login
+    redirect_to root_url and return if Rails.env.development?
+
     start_new_session # Creates/updates user and set session cookie.
     redirect_to after_authentication_url
   end
@@ -26,6 +28,7 @@ class AuthenticationController < ApplicationController
   def logout
     terminate_session
 
-    redirect_to SHIBBOLETH_LOGOUT_PATH
+    flash[:notice] = 'You have been logged out.'
+    redirect_to root_url
   end
 end
