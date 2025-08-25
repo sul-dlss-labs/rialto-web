@@ -132,7 +132,7 @@ module Authentication
     session['groups'] ||= begin
       raw_header = request.headers[USER_GROUPS_HEADER] || ''
       raw_header.split(';')
-    end.compact.uniq
+    end
   end
 
   def terminate_session
