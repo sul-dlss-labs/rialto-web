@@ -3,7 +3,9 @@
 # Service for encoding JWT tokens
 class JwtService
   def self.encode(groups)
-    # anyone who is logged in gets the "stanford" group by default, add it below
+    # anyone who is logged in is part of the stanford group as far as tableau is concerned
+    groups << 'stanford' unless groups.include?('stanford')
+
     payload = { 'exp' => Time.now.to_i + Settings.tableau.token_expiry_time_seconds,
                 'jti' => SecureRandom.uuid,
                 'aud' => 'tableau',
