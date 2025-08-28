@@ -23,6 +23,7 @@ class JwtService
     { 'exp' => Time.now.to_i + Settings.tableau.token_expiry_time_seconds,
       'jti' => SecureRandom.uuid,
       'aud' => 'tableau',
+      'sub' => Settings.tableau.username,
       'scp' => ['tableau:views:embed'],
       'https://tableau.com/oda' => true,
       'https://tableau.com/groups' => groups }
