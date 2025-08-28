@@ -2,6 +2,8 @@
 exclude:
   - 'vendor/**/*'
 linters:
+  AllowedScriptType:
+    enabled: false
   Rubocop:
     enabled: true
     rubocop_config:
