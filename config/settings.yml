@@ -5,6 +5,7 @@ email_suffix: '@stanford.edu'
 
 # connected app config
 tableau:
+  base_url: https://tableau-uat.stanford.edu
   # actual secrets are in vault and set by puppet
   client_id: STAGE_CLIENT_ID_HERE
   client_secret_id: STAGE_CLIENT_SECRET_ID_HERE
