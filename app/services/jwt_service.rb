@@ -13,19 +13,16 @@ class JwtService
     groups << 'stanford' unless groups.include?('stanford')
     payload = { 'exp' => Time.now.to_i + Settings.tableau.token_expiry_time_seconds,
                 'jti' => SecureRandom.uuid,
+                'iss' => Settings.tableau.client_id,
                 'aud' => 'tableau',
                 'sub' => Settings.tableau.username,
-                'scp' => ['tableau:views:embed'],
-                'https://tableau.com/oda' => true,
-                'https://tableau.com/groups' => groups }
+                'scp' => ['tableau:views:embed'] }
     JWT.encode(payload, Settings.tableau.client_secret_value, ALGORITHM, header)
   end
 
   private
 
   def header
-    { 'kid' => Settings.tableau.client_secret_id,
-      'iss' => Settings.tableau.client_id,
-      'alg' => ALGORITHM }
+    { 'kid' => Settings.tableau.client_secret_id }
   end
 end
