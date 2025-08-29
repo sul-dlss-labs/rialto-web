@@ -2,7 +2,7 @@
 
 <tableau-viz id="tableau-viz"
     src='<%= Settings.tableau.base_url %>/t/DLSS/views/TestEmbeddedViz/Sheet1'
-    token='<%= request.cookies['jwt'] %>'
+    token='<%=@token%>'
     height='1363'
     width='1200'
     toolbar='bottom'>

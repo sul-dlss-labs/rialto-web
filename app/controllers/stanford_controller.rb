@@ -4,7 +4,9 @@
 class StanfordController < ApplicationController
   before_action :check_authorization
 
-  def index; end
+  def index
+    @token = JwtService.encode([])
+  end
 
   def self.policy_name
     'StanfordPolicy'
