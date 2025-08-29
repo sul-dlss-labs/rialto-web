@@ -29,7 +29,7 @@
     <p>
       <%= link_to 'RIALTO Home', root_path %> |
       <% if current_user.present? %>
-        Logged in: <%= current_user.name %> | Groups: <%= Current.groups.join(', ') %> | <%= link_to 'Logout', logout_path %>
+        Logged in: <%= Current.user.name %> | <%= Current.user.sunetid %> | Groups: <%= Current.groups.join(', ') %> | <%= link_to 'Logout', logout_path %>
       <% else %>
         <%= link_to 'Login', login_path(referrer: request.original_url) %>
       <% end %>

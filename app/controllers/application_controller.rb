@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def mint_jwt_token
-    @token = JwtService.encode(Current.groups)
+    @token = JwtService.encode
   end
 
   def implicit_authorization_target

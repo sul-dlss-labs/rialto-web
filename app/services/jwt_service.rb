@@ -4,25 +4,27 @@
 class JwtService
   ALGORITHM = 'HS256'
 
-  def self.encode(groups)
-    new.encode(groups)
+  def self.encode
+    new.encode
   end
 
-  def encode(groups)
-    # anyone who is logged in is part of the stanford group as far as tableau is concerned
-    groups << 'stanford' unless groups.include?('stanford')
-    payload = { 'exp' => Time.now.to_i + Settings.tableau.token_expiry_time_seconds,
-                'jti' => SecureRandom.uuid,
-                'iss' => Settings.tableau.client_id,
-                'aud' => 'tableau',
-                'sub' => Settings.tableau.username,
-                'https://tableau.com/oda' => 'true',
-                'https://tableau.com/groups' => groups,
-                'scp' => ['tableau:views:embed'] }
+  def encode
     JWT.encode(payload, Settings.tableau.client_secret_value, ALGORITHM, header)
   end
 
   private
+
+  def payload
+    # anyone who is logged in is part of the stanford group as far as tableau is concerned
+    { 'exp' => Time.now.to_i + Settings.tableau.token_expiry_time_seconds,
+      'jti' => SecureRandom.uuid,
+      'iss' => Settings.tableau.client_id,
+      'aud' => 'tableau',
+      'sub' => Current.user.sunetid,
+      'https://tableau.com/oda' => 'true',
+      'https://tableau.com/groups' => Current.groups << 'stanford',
+      'scp' => ['tableau:views:embed'] }
+  end
 
   def header
     { 'kid' => Settings.tableau.client_secret_id,
