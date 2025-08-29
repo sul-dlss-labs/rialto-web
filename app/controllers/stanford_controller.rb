@@ -3,10 +3,9 @@
 # Controller for the stanford only access pages
 class StanfordController < ApplicationController
   before_action :check_authorization
+  before_action :mint_jwt_token, only: [:index]
 
-  def index
-    @token = JwtService.encode([])
-  end
+  def index; end
 
   def self.policy_name
     'StanfordPolicy'

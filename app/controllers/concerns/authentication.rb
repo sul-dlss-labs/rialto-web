@@ -98,8 +98,6 @@ module Authentication
     results = User.upsert(user_attrs, unique_by: :email_address) # rubocop:disable Rails/SkipsModelValidations
     # This cookie will be used to authenticate Action Cable connections.
     cookies.signed.permanent[:user_id] = { value: results.rows[0][0], httponly: true, same_site: :lax }
-    cookies.signed[:jwt] =
-      { value: JwtService.encode(groups_from_session), httponly: true, secure: Rails.env.production? }
   end
 
   def user_attrs # rubocop:disable Metrics/AbcSize

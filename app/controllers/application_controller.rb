@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.root_path
   end
 
+  def mint_jwt_token
+    @token = JwtService.encode(Current.groups)
+  end
+
   def implicit_authorization_target
     self
   end

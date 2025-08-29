@@ -17,7 +17,7 @@ class JwtService
                 'aud' => 'tableau',
                 'sub' => Settings.tableau.username,
                 'https://tableau.com/oda' => 'true',
-                'https://tableau.com/groups' => ['sul-rialto'], # TODO: send the actual groups
+                'https://tableau.com/groups' => groups,
                 'scp' => ['tableau:views:embed'] }
     JWT.encode(payload, Settings.tableau.client_secret_value, ALGORITHM, header)
   end
