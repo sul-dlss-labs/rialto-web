@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/sul-dlss-labs/rialto-web/tree/main.svg?style=svg&circle-token=CCIPRJ_9bhFDje9h5tLZ8dRs2Jbrp_ef783e585b071f6c23ce5c1e72942cf0210f98f5)](https://dl.circleci.com/status-badge/redirect/gh/sul-dlss-labs/rialto-web/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/sul-dlss-labs/rialto-web/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/sul-dlss-labs/rialto-web/tree/main)
 
 # RIATLO Web App
 
