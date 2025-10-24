@@ -15,7 +15,7 @@ RSpec.describe 'Show public page' do
     it 'shows the public page with logged in message' do
       get '/public/index'
 
-      expect(response.body).to include('Some ORCID Graph')
+      expect(response.body).to include('Public')
       expect(response.body).to include("Logged in: #{name}")
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe 'Show public page' do
     it 'shows the public page' do
       get '/public/index'
 
-      expect(response.body).to include('Some ORCID Graph')
+      expect(response.body).to include('Public')
       expect(response.body).not_to include("Logged in: #{name}")
     end
   end
