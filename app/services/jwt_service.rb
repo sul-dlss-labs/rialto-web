@@ -21,8 +21,6 @@ class JwtService
       'iss' => Settings.tableau.client_id,
       'aud' => 'tableau',
       'sub' => Current.user.sunetid,
-      'https://tableau.com/oda' => 'true',
-      'https://tableau.com/groups' => Current.groups << 'stanford',
       'scp' => ['tableau:views:embed'] }
   end
 
