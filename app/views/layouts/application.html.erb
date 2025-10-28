@@ -97,87 +97,6 @@
           </div>
         </div>
       </nav>
-
-      <div id="feedback" class="collapse">
-        <div class="container pt-3">
-          <div class="row justify-content-center">
-            <form
-              class="col-md-8"
-              action="/feedback"
-              accept-charset="UTF-8"
-              method="post">
-              <div class="alert alert-info" role="alert">
-                Reporting from:
-                https://sul-rialto-prod.stanford.edu
-              </div>
-              <div class="mb-3 row">
-                <label class="col-md-3 col-form-label" for="message">
-                  Message
-                </label>
-                <div class="col-md-9">
-                  <textarea
-                    class="form-control"
-                    rows="5"
-                    required="required"
-                    data-form-type="other"
-                    name="message"
-                    id="message"></textarea>
-                </div>
-              </div>
-              <div class="mb-3 row">
-                <label class="col-md-3 col-form-label" for="name">
-                  Your name</label>
-                <div class="col-md-9">
-                  <input
-                    class="form-control"
-                    required="required"
-                    data-form-type="other"
-                    autocomplete="name"
-                    type="text"
-                    name="name"
-                    id="name">
-                </div>
-              </div>
-              <div class="mb-3 row">
-                <label class="col-md-3 col-form-label" for="email">
-                <div class="col-md-9">
-                    <input class="form-control" required="required" data-form-type="other" autocomplete="email" type="email" name="email" id="email">
-                  <p class="text-secondary mt-2 mb-0">
-                    This site is protected by reCAPTCHA and the Google
-                    <a href="https://policies.google.com/privacy">
-                      Privacy Policy</a>
-                    and
-                    <a href="https://policies.google.com/terms">
-                      Terms of Service</a>
-                    apply.
-                  </p>
-                </div>
-              </div>
-              <div class="mb-3 row">
-                <div class="col-md-9 offset-md-3">Recaptcha stuff</div>
-              </div>
-              <div class="mb-3 row">
-                <div class="col-md-9 offset-md-3">
-                  <input
-                    type="submit"
-                    name="commit"
-                    value="Send"
-                    class="btn btn-secondary"
-                    data-disable-with="Send">
-                  <button
-                    name="button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#feedback"
-                    class="btn btn-outline-secondary">
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
       <div class="masthead bg-light">
         <div class="container">
           <div
@@ -186,7 +105,7 @@
               <span class="rosette-logo me-1 align-self-start flex-shrink-0" aria-hidden="true"></span>
               <div class="me-1 flex-grow-1">
                 <div class="h1 my-0">
-                  <a href="/">RIALTO</a>
+                  <%= link_to 'RIALTO', root_path %>
                 </div>
                 <span class="h4 d-block my-1">
                   Research Intelligence at Stanford
@@ -245,9 +164,8 @@
     </header>
     <div class="container">
       <p>
-        <%= link_to 'RIALTO Home', root_path %> |
         <% if current_user.present? %>
-          Logged in: <%= Current.user.name %> | <%= Current.user.sunetid %> | Groups: <%= Current.groups.join(', ') %> | <%= link_to 'Logout', logout_path %>
+          Logged in: <%= Current.user.name %> | <%= Current.user.sunetid %> | Groups: <%= Current.groups.join(', ') %>
         <% else %>
           <%= link_to 'Login', login_path(referrer: request.original_url) %>
         <% end %>
