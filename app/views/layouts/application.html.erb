@@ -88,15 +88,10 @@
           <div class="d-md-block d-none">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a
-                  href="#feedback"
-                  class="nav-link"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#feedback">
-                  Feedback</a>
+                <%= link_to 'Feedback', 'mailto:rialto-service@lists.stanford.edu', class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <a href="/login" class="nav-link">Login</a>
+                <%= link_to 'Login', '/login', class: 'nav-link' %>
               </li>
             </ul>
           </div>
