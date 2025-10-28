@@ -4,6 +4,6 @@
   --identity-bar-bg-color: var(--stanford-cardinal);
 }
 
-.bg-light {
-    background-color: var(--stanford-fog-light) !important;
-  }
+.fog-light {
+    background-color: var(--stanford-fog-light);
+}
