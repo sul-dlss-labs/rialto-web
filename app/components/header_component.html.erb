@@ -1,0 +1,144 @@
+<header>
+      <div class="identity-bar">
+        <div class="container">
+          <a
+            class="su-brand-bar__logo"
+            href="https://www.stanford.edu">
+            Stanford University</a>
+        </div>
+      </div>
+      <nav class="navbar navbar-expand-md fog-light">
+        <div class="container">
+          <a
+            class="mb-0 navbar-brand navbar-logo"
+            href="https://library.stanford.edu">
+            Stanford University Libraries</a>
+          <button
+            class="navbar-toggler navbar-toggler-right collapsed"
+            type="button"
+            data-toggle="collapse"
+            data-bs-toggle="collapse"
+            data-target="#user-util-collapse"
+            data-bs-target="#user-util-collapse"
+            aria-controls="user-util-collapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="d-md-block d-none">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <%= link_to 'Feedback', 'mailto:rialto-service@lists.stanford.edu', class: 'nav-link' %>
+              </li>
+              <li class="nav-item dropdown">
+                <% if helpers.current_user.present? %>
+                  <button
+                    class="nav-link logout-dropdown dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    title="<%= "SUNet: #{Current.user.sunetid} | Groups: #{Current.groups.join(', ')}" %>">
+                    Logged in: <%= Current.user.name || Current.user.sunetid %>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to 'Logout', logout_path, class: 'dropdown-item' %></li>
+                  </ul>
+                <% else %>
+                  <%= link_to 'Login', login_path(referrer: request.original_url), class: 'nav-link' %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="masthead fog-light">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap align-items-end pt-3 pb-1 pb-md-3 gap-2">
+            <div class="d-flex align-items-end gap-2 flex-grow-1">
+              <span class="rosette-logo me-1 align-self-start flex-shrink-0" aria-hidden="true"></span>
+              <div class="me-1 flex-grow-1">
+                <div class="h1 my-0">
+                  <%= link_to 'RIALTO', root_path %>
+                </div>
+                <span class="h4 d-block my-1">
+                  Research Intelligence at Stanford
+                </span>
+              </div>
+            </div>
+            <div class="navbars ms-md-auto">
+              <nav
+                class="collapse navbar-collapse align-items-start justify-content-md-end navbar-expand-md d-md-flex flex-column flex-md-row"
+                aria-label="browse"
+                id="user-util-collapse">
+                <hr class="d-md-none vw-100 my-0">
+                <ul
+                  class="navbar-nav justify-content-md-end gap-0 gap-md-4 w-100 fw-semibold">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                    Dashboards
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="/orcid">
+                          ORCID iD Adoption</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="/open-access">Open Access</a>
+                      </li>
+                        <a class="dropdown-item" href="/publications">Publications</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <hr class="d-md-none vw-100 my-0">
+                <ul class="navbar-nav d-md-none gap-0 w-100">
+                  <li class="nav-item">
+                    <a
+                      href="#feedback"
+                      class="nav-link"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#feedback">
+                      Feedback</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <% if current_page?(root_path) # home page hero image %>
+          <div style="height: 250px; overflow: hidden; position: relative;">
+            <%= image_tag 'home_hero.png', style: 'width: 100%; height: 100%; object-fit: cover;' %>
+            <div class="container" style="position: absolute; top: 50%; left: 15%; transform: translateY(-50%); width: 50%; background: white; padding: 1rem; border-radius: 0.375rem;">
+              <div class="row">
+                <div class="col-6">
+                  <h4>Quick links</h4>
+                  <p><strong>Research intelligence dashboards</strong><br>
+                  <em>Visualizing Stanford publications and research data</em></p>
+                </div>
+                <div class="col-6">
+                  <div class="d-flex flex-column gap-2">
+                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                      <i class="bi bi-box-arrow-up-right me-1"></i> ORCID iD adoption
+                    <% end %>
+                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                      <i class="bi bi-box-arrow-up-right me-1"></i> Open access
+                    <% end %>
+                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                      <i class="bi bi-box-arrow-up-right me-1"></i> Publications
+                    <% end %>
+                  </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </header>
