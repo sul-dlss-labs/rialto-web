@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   root 'home#show'
 
-  get 'public/:action', controller: 'public'
-  get 'stanford/:action', controller: 'stanford'
-  get 'restricted/:action', controller: 'restricted'
+  get 'public/index', controller: 'public'
+  get 'stanford/index', controller: 'stanford'
+  get 'restricted/index', controller: 'restricted'
 end
