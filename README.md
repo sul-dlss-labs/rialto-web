@@ -42,6 +42,15 @@ A logged in user in multiple workgroup:
 REMOTE_USER=peter ROLES=sul:rialto;sul:dlss rails s
 ```
 
+## Website Access Levels
+
+There are three base controllers that determine access levels:
+1. PublicController - any controllers which subclass from this controller will have views that are visible to anyone
+2. StanfordController - any controllers which subclass from this controller will have views that require the user to be webauthed (but no specific workgroups are checked)
+3. RestrictedController - any controllers which subclass from this controller will have views that both require a user to be webauthed, in addition to be part of the workgroup defined in the settings.yml file (as checked in the RestrictedPolicy)
+
+Note that if required you can create additional policies and additional controllers to check membership in other workgroups.  You will need to be sure that the additional workgroups you are checking membership for are passed through from shibboleth to the app on login.  This requires filing an Ops ticket, e.g. https://github.com/sul-dlss/operations-tasks/issues/4238
+
 ## Tests
 
 All of the below checks are part of the default Rake task, and so will run if you call `bin/rake`.

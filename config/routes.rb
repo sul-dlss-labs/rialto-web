@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
   root 'home#show'
 
+  get 'orcid-adoption', to: 'orcid_adoption#show', as: 'orcid_adoption_dashboard'
+
+  # TODO: Remove these example routes once real routes are added.
   get 'public/index', controller: 'public'
   get 'stanford/index', controller: 'stanford'
   get 'restricted/index', controller: 'restricted'
