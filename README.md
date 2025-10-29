@@ -44,6 +44,10 @@ REMOTE_USER=peter ROLES=sul:rialto;sul:dlss rails s
 
 ## Tests
 
+All of the below checks are part of the default Rake task, and so will run if you call `bin/rake`.
+
+You can run individual checks with the following commands:
+
 Run lint:
 ```
 bundle exec rubocop
@@ -53,4 +57,9 @@ bundle exec erb_lint --lint-all --format compact
 Run tests:
 ```
 bundle exec rspec
+```
+
+Run Brakeman (static security analysis):
+```
+bin/brakeman
 ```
