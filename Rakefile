@@ -7,19 +7,21 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
 
-desc 'Run erblint against ERB files'
-task erblint: :environment do
-  puts 'Running erblint...'
-  system('bundle exec erb_lint --lint-all --format compact')
+  desc 'Run erblint against ERB files'
+  task erblint: :environment do
+    puts 'Running erblint...'
+    system('bundle exec erb_lint --lint-all --format compact')
+  end
+  desc 'Run all configured linters'
+  task lint: %i[rubocop erblint]
+
+  # clear the default task injected by rspec
+  task(:default).clear
+  task default: %i[lint brakeman:run_in_child_process spec]
+rescue LoadError
+  # Gem is not available (e.g. in production), do nothing
 end
-
-desc 'Run all configured linters'
-task lint: %i[rubocop erblint]
-
-# clear the default task injected by rspec
-task(:default).clear
-
-task default: %i[lint brakeman:run_in_child_process spec]
