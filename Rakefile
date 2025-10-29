@@ -18,11 +18,10 @@ begin
   end
   desc 'Run all configured linters'
   task lint: %i[rubocop erblint]
+
+  # clear the default task injected by rspec
+  task(:default).clear
+  task default: %i[lint brakeman:run_in_child_process spec]
 rescue LoadError
   # Gem is not available (e.g. in production), do nothing
 end
-
-# clear the default task injected by rspec
-task(:default).clear
-
-task default: %i[lint brakeman:run_in_child_process spec]
