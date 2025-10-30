@@ -28,7 +28,6 @@ class AuthenticationController < ApplicationController
   def logout
     terminate_session
 
-    flash[:notice] = 'You have been logged out.'
-    redirect_to root_url
+    redirect_to SHIBBOLETH_LOGOUT_PATH
   end
 end
