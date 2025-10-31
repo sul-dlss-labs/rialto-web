@@ -19,8 +19,15 @@ class ApplicationController < ActionController::Base
   private
 
   def deny_access
-    flash[:warning] = 'You are not authorized'
-    redirect_to main_app.root_path
+    flash[:warning] = 'You are not authorized to view this page.'
+
+    if turbo_frame_request?
+      # For Turbo Frame requests, use turbo_stream to redirect the full page
+      render turbo_stream: turbo_stream.action(:redirect, root_url), status: :see_other
+    else
+      # For regular requests, redirect normally
+      redirect_to root_path
+    end
   end
 
   def mint_jwt_token
