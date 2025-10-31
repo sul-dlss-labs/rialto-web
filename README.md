@@ -51,6 +51,17 @@ There are three base controllers that determine access levels:
 
 Note that if required you can create additional policies and additional controllers to check membership in other workgroups.  You will need to be sure that the additional workgroups you are checking membership for are passed through from shibboleth to the app on login.  This requires filing an Ops ticket, e.g. https://github.com/sul-dlss/operations-tasks/issues/4238
 
+In views, you can test user's access level like this:
+
+```
+<% if authenticated? && allowed_to?(:view?, :stanford) %>
+    <--> stanford only stuff <-->
+<% end %>
+<% if authenticated? && allowed_to?(:view?, :restricted) %>
+    <--> business case stuff <-->
+<% end %>
+```
+
 ## Tests
 
 All of the below checks are part of the default Rake task, and so will run if you call `bin/rake`.

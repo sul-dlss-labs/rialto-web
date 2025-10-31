@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-class DashboardHeaderComponent < ViewComponent::Base
-    attr_reader :title
+# Show the header above a dashboard embed
+class DashboardHeaderComponent < ApplicationComponent
+  attr_reader :title
 
-    def initialize(title:)
-      @title = title
-    end
+  def initialize(title:)
+    super()
+    @title = title
+  end
 end

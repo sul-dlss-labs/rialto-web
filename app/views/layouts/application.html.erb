@@ -52,24 +52,16 @@
     <%= render HeaderComponent.new %>
 
     <div class="container">
-      <p><%= link_to 'public', controller: :public, action: :index %>
-          <% if authenticated? && allowed_to?(:view?, :stanford) %>
-            | <%= link_to 'stanford', controller: :stanford, action: :index %>
-          <% end %>
-          <% if authenticated? && allowed_to?(:view?, :restricted) %>
-            | <%= link_to 'restricted', controller: :restricted, action: :index %>
-          <% end %>
-      </p>
 
-    <% flash.each do |type, message| %>
-      <div class="flash <%= type %>"><%= message %></div>
-    <% end %>
+      <% flash.each do |type, message| %>
+        <div class="flash <%= type %>"><%= message %></div>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
 
     </div>
 
-  <%= render FooterComponent.new %>
+    <%= render FooterComponent.new %>
 
   </body>
 </html>

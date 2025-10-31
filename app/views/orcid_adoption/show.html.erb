@@ -1,10 +1,26 @@
 <div class="container">
-    <%= render DashboardHeaderComponent.new(title: 'ORCID Adoption Dashboard') %>
-    <div class="row">
-        <div class="col-12">
-            <script type='module' src='https://tableau.stanford.edu/javascripts/api/tableau.embedding.3.latest.min.js'></script>
-            <tableau-viz id='tableau-viz' src='https://tableau.stanford.edu/t/DLSS/views/ORCIDAdoption/ORCIDOverview' width='100%' height='1200' toolbar='hidden'>
-            </tableau-viz>
+    <%= render DashboardHeaderComponent.new(title: 'ORCID Adoption Dashboards') %>
+    <%= render OrcidAdoption::DashboardTabComponent.new %>
+    <div class="tab-content pt-3" id="dashboard-tabs-content">
+        <!-- Overview tab - rendered by default, not lazy-loaded -->
+        <div id="overview-pane" class="tab-pane fade show active" role="tabpanel">
+            <%= render DashboardEmbedComponent.new(embed_url: Settings.dashboard.orcid_adoption.stanford_overview, turbo_frame_id: 'overview_tab') %>
+        </div>
+        <!-- Schools and Departments tab -->
+        <div id="schools-pane" class="tab-pane fade" role="tabpanel">
+            <%= turbo_frame_tag 'schools_tab', src: orcid_adoption_schools_and_departments_path, loading: 'lazy' do %>
+                <div class="text-muted">Loading Schools and Departments Dashboard...</div>
+            <% end %>
+        </div>
+        <!-- Researchers tab -->
+        <div id="researchers-pane" class="tab-pane fade" role="tabpanel">
+            <%= turbo_frame_tag 'researchers_tab', src: orcid_adoption_researchers_path, loading: 'lazy' do %>
+                <div class="text-muted">Loading Individual Reseachers Dashboard...</div>
+            <% end %>
+        </div>
+        <!-- Download tab -->
+        <div id="download-pane" class="tab-pane fade" role="tabpanel">
+            Coming soon...
         </div>
     </div>
 </div>
