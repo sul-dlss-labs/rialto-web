@@ -1,25 +1,27 @@
 <div class="container">
     <%= render DashboardHeaderComponent.new(title: 'ORCID Adoption Dashboards') %>
-    <%= render OrcidAdoption::DashboardTabComponent.new %>
+    <%= render OrcidAdoption::DashboardTabComponent.new(tab: @tab) %>
     <div class="tab-content pt-3" id="dashboard-tabs-content">
         <!-- Overview tab - rendered by default, not lazy-loaded -->
-        <div id="overview-pane" class="tab-pane fade show active" role="tabpanel">
-            <%= render DashboardEmbedComponent.new(embed_url: Settings.dashboard.orcid_adoption.stanford_overview, turbo_frame_id: 'overview_tab') %>
+        <div id="overview-pane" class="tab-pane fade <%= 'show active' if @tab == 'overview' %>" role="tabpanel">
+            <%= turbo_frame_tag 'overview_tab', src: orcid_adoption_stanford_overview_path do %>
+                <div class="text-muted">Loading Stanford Overview...</div>
+            <% end %>
         </div>
         <!-- Schools and Departments tab -->
-        <div id="schools-pane" class="tab-pane fade" role="tabpanel">
+        <div id="schools-pane" class="tab-pane fade <%= 'show active' if @tab == 'schools' %>" role="tabpanel">
             <%= turbo_frame_tag 'schools_tab', src: orcid_adoption_schools_and_departments_path, loading: 'lazy' do %>
                 <div class="text-muted">Loading Schools and Departments Dashboard...</div>
             <% end %>
         </div>
         <!-- Researchers tab -->
-        <div id="researchers-pane" class="tab-pane fade" role="tabpanel">
+        <div id="researchers-pane" class="tab-pane fade <%= 'show active' if @tab == 'researchers' %>" role="tabpanel">
             <%= turbo_frame_tag 'researchers_tab', src: orcid_adoption_researchers_path, loading: 'lazy' do %>
                 <div class="text-muted">Loading Individual Reseachers Dashboard...</div>
             <% end %>
         </div>
         <!-- Download tab -->
-        <div id="download-pane" class="tab-pane fade" role="tabpanel">
+        <div id="download-pane" class="tab-pane fade <%= 'show active' if @tab == 'download' %>" role="tabpanel">
             Coming soon...
         </div>
     </div>

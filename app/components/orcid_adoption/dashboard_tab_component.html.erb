@@ -1,18 +1,30 @@
-<ul class="nav nav-tabs mt-3" id="dashboard-tabs" role="tablist">
+<ul class="nav nav-tabs mt-3" id="dashboard-tabs" role="tablist" data-controller="tab-url">
     <li class="nav-item" role="presentation">
-    <button class="nav-link <%= 'active' if active_tab == 'overview' %>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview-pane" type="button"
-        role="tab" aria-controls="overview-pane" aria-selected="<%= active_tab == 'overview' %>">Stanford Overview</button>
+    <button class="nav-link <%= tab_classes['overview'] %>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview-pane" type="button"
+        role="tab" aria-controls="overview-pane" aria-selected="<%= tab_classes['download'].include?('overview') %>"
+        aria-disabled="<%= tab_classes['overview'].include?('disabled') %>" data-tab-name="overview">
+        Stanford Overview
+    </button>
     </li>
     <li class="nav-item" role="presentation">
-    <button class="nav-link <%= 'active' if active_tab == 'schools' %>" id="schools-tab" data-bs-toggle="tab" data-bs-target="#schools-pane" type="button"
-        role="tab" aria-controls="schools-pane" aria-selected="<%= active_tab == 'schools' %>">Schools and Departments</button>
+    <button class="nav-link <%= tab_classes['schools'] %>" id="schools-tab" data-bs-toggle="tab" data-bs-target="#schools-pane" type="button"
+        role="tab" aria-controls="schools-pane" aria-selected="<%= tab_classes['schools'].include?('active') %>"
+        aria-disabled="<%= tab_classes['schools'].include?('disabled') %>" data-tab-name="schools">
+        Schools and Departments
+    </button>
     </li>
     <li class="nav-item" role="presentation">
-    <button class="nav-link <%= 'active' if active_tab == 'researchers' %>" id="researchers-tab" data-bs-toggle="tab" data-bs-target="#researchers-pane"
-        type="button" role="tab" aria-controls="researchers-pane" aria-selected="<%= active_tab == 'researchers' %>">Individual Researchers</button>
+    <button class="nav-link <%= tab_classes['researchers'] %>" id="researchers-tab" data-bs-toggle="tab" data-bs-target="#researchers-pane"
+        type="button" role="tab" aria-controls="researchers-pane" aria-selected="<%= tab_classes['researchers'].include?('active') %>"
+        aria-disabled="<%= tab_classes['researchers'].include?('disabled') %>" data-tab-name="researchers">
+        Individual Researchers
+    </button>
     </li>
     <li class="nav-item" role="presentation">
-    <button class="nav-link <%= 'active' if active_tab == 'download' %>" id="download-tab" data-bs-toggle="tab" data-bs-target="#download-pane" type="button" role="tab"
-        aria-controls="download-pane" aria-selected="<%= active_tab == 'download' %>">Download Data</button>
+    <button class="nav-link <%= tab_classes['download'] %>" id="download-tab" data-bs-toggle="tab" data-bs-target="#download-pane" type="button" role="tab"
+        aria-controls="download-pane" aria-selected="<%= tab_classes['download'].include?('active') %>"
+        aria-disabled="<%= tab_classes['download'].include?('disabled') %>" data-tab-name="download">
+        Download Data
+    </button>
     </li>
 </ul>

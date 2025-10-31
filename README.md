@@ -51,6 +51,8 @@ There are three base controllers that determine access levels:
 
 Note that if required you can create additional policies and additional controllers to check membership in other workgroups.  You will need to be sure that the additional workgroups you are checking membership for are passed through from shibboleth to the app on login.  This requires filing an Ops ticket, e.g. https://github.com/sul-dlss/operations-tasks/issues/4238
 
+Within a controller, you can have different actions protected by different policies.  See OrcidAdoptionController for an example.
+
 In views, you can test user's access level like this:
 
 ```

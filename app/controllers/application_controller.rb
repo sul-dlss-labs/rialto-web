@@ -20,14 +20,7 @@ class ApplicationController < ActionController::Base
 
   def deny_access
     flash[:warning] = 'You are not authorized to view this page.'
-
-    if turbo_frame_request?
-      # For Turbo Frame requests, use turbo_stream to redirect the full page
-      render turbo_stream: turbo_stream.action(:redirect, root_url), status: :see_other
-    else
-      # For regular requests, redirect normally
-      redirect_to root_path
-    end
+    redirect_to root_path, status: :forbidden
   end
 
   def mint_jwt_token
@@ -36,5 +29,9 @@ class ApplicationController < ActionController::Base
 
   def implicit_authorization_target
     self
+  end
+
+  def require_turbo_frame
+    redirect_to root_path unless turbo_frame_request?
   end
 end
