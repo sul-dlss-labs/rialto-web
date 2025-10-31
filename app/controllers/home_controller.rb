@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for the home page
-class HomeController < ApplicationController
-  allow_unauthenticated_access
-  skip_verify_authorized
-
+# Controller for the home page, anyone can see it
+class HomeController < PublicController
   def show; end
 end

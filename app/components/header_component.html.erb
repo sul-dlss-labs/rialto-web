@@ -88,8 +88,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="/orcid">
-                          ORCID iD Adoption</a>
+                        <%= link_to 'ORCID iD Adoption', orcid_adoption_dashboard_path, class: 'dropdown-item' %>
                       </li>
                       <li>
                         <a class="dropdown-item" href="/open-access">Open Access</a>
@@ -126,7 +125,7 @@
                 </div>
                 <div class="col-6">
                   <div class="d-flex flex-column gap-2">
-                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                    <%= link_to orcid_adoption_dashboard_path, class: 'link-primary text-decoration-underline' do %>
                       <i class="bi bi-box-arrow-up-right me-1"></i> ORCID iD adoption
                     <% end %>
                     <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
