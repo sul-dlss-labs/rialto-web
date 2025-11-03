@@ -1,6 +1,6 @@
 <div class="container">
     <%= render DashboardHeaderComponent.new(title: 'ORCID Adoption Dashboards') %>
-    <%= render OrcidAdoption::DashboardTabComponent.new(tab: @tab) %>
+    <%= render OrcidAdoption::DashboardTabComponent.new(selected_tab: @tab) %>
     <div class="tab-content pt-3" id="dashboard-tabs-content">
         <!-- Overview tab - rendered by default, not lazy-loaded -->
         <div id="overview-pane" class="tab-pane fade <%= 'show active' if @tab == 'overview' %>" role="tabpanel">

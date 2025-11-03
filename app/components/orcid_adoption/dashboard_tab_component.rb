@@ -3,23 +3,23 @@
 module OrcidAdoption
   # Show the tabs above the orcid adoption dashboard embed
   class DashboardTabComponent < ApplicationComponent
-    attr_reader :tab_classes, :tab
+    attr_reader :tab_classes, :selected_tab
 
     delegate :authenticated?, :allowed_to?, to: :helpers
 
-    def initialize(tab: 'overview')
+    def initialize(selected_tab: 'overview')
       super()
-      @tab = tab
-      @tab_classes = Hash.new('')
-      @available_tabs = %w[overview schools researchers download]
+      @selected_tab = selected_tab
     end
 
-    def before_render
-      @available_tabs.each { |t| @tab_classes[t] = 'active' if t == tab }
-      @tab_classes['schools'] += ' disabled' unless authenticated? && allowed_to?(:view?, :stanford)
-      @tab_classes['researchers'] += ' disabled' unless authenticated? && allowed_to?(:view?,
-                                                                                      :restricted)
-      @tab_classes['download'] += ' disabled' unless authenticated? && allowed_to?(:view?, :restricted)
+    # a hash of the name of the tab and the text to be shown
+    def tabs
+      {
+        'overview' => 'Stanford Overview',
+        'schools' => 'Schools and Departments',
+        'researchers' => 'Individual Researchers',
+        'download' => 'Download Data'
+      }
     end
   end
 end
