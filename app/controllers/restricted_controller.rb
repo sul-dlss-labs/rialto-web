@@ -4,9 +4,6 @@
 class RestrictedController < ApplicationController
   before_action :check_authorization
 
-  # TODO: Remove this method and view once example routes are removed.
-  def index; end
-
   def self.policy_name
     'RestrictedPolicy'
   end
