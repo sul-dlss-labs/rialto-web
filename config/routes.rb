@@ -25,9 +25,4 @@ Rails.application.routes.draw do
                                                 as: 'orcid_adoption_schools_and_departments'
   get 'orcid-adoption/individual-researchers', to: 'orcid_adoption#individual_researchers',
                                                as: 'orcid_adoption_researchers'
-
-  # TODO: Remove these example routes once real routes are added.
-  get 'public/index', controller: 'public'
-  get 'stanford/index', controller: 'stanford'
-  get 'restricted/index', controller: 'restricted'
 end

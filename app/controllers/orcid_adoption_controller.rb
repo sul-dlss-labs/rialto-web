@@ -2,13 +2,15 @@
 
 # Controller for the orcid dashboards
 class OrcidAdoptionController < ApplicationController
-  before_action :mint_jwt_token, except: %i[show stanford_overview]
-  before_action :require_turbo_frame, except: [:show]
+  before_action :mint_jwt_token, except: %i[show stanford_overview] # JWT only for views with dashboards behind auth
+  before_action :require_turbo_frame, except: [:show] # only turbo frame requests for embedded dashboards
 
+  # these views are public
   allow_unauthenticated_access only: %i[show stanford_overview]
   skip_verify_authorized only: %i[show stanford_overview]
 
-  # main dashboard page, accessible to all users; use tab param to select which tab is active
+  # main dashboard page, accessible to all users
+  # use tab param to select which tab is active (default is overview)
   def show
     @tab = params[:tab] || 'overview'
   end
@@ -26,7 +28,7 @@ class OrcidAdoptionController < ApplicationController
     authorize! to: :view?, with: StanfordPolicy
 
     render DashboardEmbedComponent.new(embed_url: Settings.dashboard.orcid_adoption.schools_and_departments,
-                                       turbo_frame_id: 'schools_tab')
+                                       turbo_frame_id: 'schools_tab', token: @token)
   end
 
   # the individual researchers dashboard embedded view (workgroup users only) -
@@ -35,6 +37,6 @@ class OrcidAdoptionController < ApplicationController
     authorize! to: :view?, with: RestrictedPolicy
 
     render DashboardEmbedComponent.new(embed_url: Settings.dashboard.orcid_adoption.individual_researchers,
-                                       turbo_frame_id: 'researchers_tab')
+                                       turbo_frame_id: 'researchers_tab', token: @token)
   end
 end
