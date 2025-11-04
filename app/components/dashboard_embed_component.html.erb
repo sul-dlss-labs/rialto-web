@@ -1,14 +1,18 @@
 <turbo-frame id="<%= turbo_frame_id %>">
-    <div class="row">
-        <div class="col-12">
-            <script type='module' src='<%= Settings.tableau.base_url %>/javascripts/api/tableau.embedding.3.latest.min.js'></script>
-            <tableau-viz
-                id='tableau-viz'
-                src='<%= embed_url %>'
-                <% if token && !Rails.env.development? %> token='<%= token %>'<% end %>
-                width='<%= width %>' height='<%= height %>'
-                toolbar='hidden'>
-            </tableau-viz>
+    <% if authorized? %>
+        <div class="row">
+            <div class="col-12">
+                <script type='module' src='<%= Settings.tableau.base_url %>/javascripts/api/tableau.embedding.3.latest.min.js'></script>
+                <tableau-viz
+                    id='tableau-viz'
+                    src='<%= embed_url %>'
+                    <% if token && !Rails.env.development? %> token='<%= token %>'<% end %>
+                    width='<%= width %>' height='<%= height %>'
+                    toolbar='hidden'>
+                </tableau-viz>
+            </div>
         </div>
-    </div>
+    <% else %>
+        <%= render ErrorComponent.new %>
+    <% end %>
 </turbo-frame>
