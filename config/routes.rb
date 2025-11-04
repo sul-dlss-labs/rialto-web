@@ -19,6 +19,14 @@ Rails.application.routes.draw do
 
   root 'home#show'
 
+  get 'orcid-adoption', to: 'orcid_adoption#show', as: 'orcid_adoption_dashboard'
+  get 'orcid-adoption/stanford-overview', to: 'orcid_adoption#stanford_overview', as: 'orcid_adoption_stanford_overview'
+  get 'orcid-adoption/schools-and-departments', to: 'orcid_adoption#schools_and_departments',
+                                                as: 'orcid_adoption_schools_and_departments'
+  get 'orcid-adoption/individual-researchers', to: 'orcid_adoption#individual_researchers',
+                                               as: 'orcid_adoption_researchers'
+
+  # TODO: Remove these example routes once real routes are added.
   get 'public/index', controller: 'public'
   get 'stanford/index', controller: 'stanford'
   get 'restricted/index', controller: 'restricted'
