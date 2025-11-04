@@ -7,6 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_importmap_tags %>
 
     <%= yield :head %>
 
@@ -39,7 +40,6 @@
     <%= stylesheet_link_tag :app, 'data-turbo-track': 'reload' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sul-dlss/component-library@v2025-09-11/styles/sul.css">
     <%= stylesheet_link_tag 'component_library_overrides' %>
-    <%= javascript_importmap_tags %>
 
     <%# Tableau embedded app javascript %>
     <script type="module" src="<%= Settings.tableau.base_url %>/javascripts/api/tableau.embedding.3.latest.min.js"></script>
