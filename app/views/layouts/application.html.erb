@@ -45,15 +45,14 @@
     <script type="module" src="<%= Settings.tableau.base_url %>/javascripts/api/tableau.embedding.3.latest.min.js"></script>
   </head>
 
-  <body>
-<body>
+  <body class="d-flex flex-column" style="min-height: 100vh">
     <%= render NavComponent.new %>
 
     <%= render HeaderComponent.new %>
 
     <%= render FlashComponent.new(flash:) %>
 
-    <div class="container">
+    <div class="container mb-auto flex-1">
 
       <%= yield %>
 
