@@ -86,7 +86,7 @@ module Authentication
 
   def development_user_attrs
     {
-      email_address: ENV.fetch('REMOTE_USER', nil),
+      email_address: ENV.fetch('REMOTE_USER', 'test'),
       name: 'User',
       first_name: 'Test'
     }
