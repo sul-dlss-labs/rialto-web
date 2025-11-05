@@ -11,20 +11,13 @@ class ApplicationController < ActionController::Base
   # See https://actionpolicy.evilmartians.io/#/rails?id=verify_authorized-hooks for how to skip.
   verify_authorized
 
-  rescue_from ActionPolicy::Unauthorized, with: :deny_access
-
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
   private
 
-  def deny_access
-    flash[:warning] = 'You are not authorized to view this page.'
-    redirect_to root_path, status: :forbidden
-  end
-
   def mint_jwt_token
-    @token = JwtService.encode
+    @mint_jwt_token ||= JwtService.encode
   end
 
   def implicit_authorization_target

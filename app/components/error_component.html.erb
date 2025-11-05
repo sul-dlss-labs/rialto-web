@@ -1,0 +1,15 @@
+<div class="alert alert-warning d-flex shadow-sm align-items-center mt-3">
+  <div role="img" aria-label="Warning icon" class="bi bi-exclamation-triangle-fill fs-3 me-3 align-self-center
+              d-flex justify-content-center"></div>
+  <div class="text-body">
+      <div class="fw-semibold"><%= alert_heading %></div>
+      <div>
+          <% if current_user %>
+            This dashboard is only available to select users.
+            If you would like to request access, please email:  <%= link_to 'rialto-service@lists.stanford.edu', 'mailto:rialto-service@lists.stanford.edu' %>.
+          <% else %>
+            Log in to access the dashboards available to you. <%= link_to 'Log in', login_path, data: { turbo: false } %>
+          <% end %>
+      </div>
+  </div>
+</div>
