@@ -2,7 +2,7 @@
 
 set :application, 'rialto'
 
-set :repo_url, 'git@github.com:sul-dlss-labs/rialto-web.git'
+set :repo_url, 'https://github.com/sul-dlss/rialto-web.git'
 set :ssh_options,   keys: [Capistrano::OneTimeKey.temporary_ssh_private_key_path],
                     forward_agent: true,
                     auth_methods: %w[publickey password]

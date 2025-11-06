@@ -8,7 +8,7 @@
             This dashboard is only available to select users.
             If you would like to request access, please email:  <%= link_to 'rialto-service@lists.stanford.edu', 'mailto:rialto-service@lists.stanford.edu' %>.
           <% else %>
-            Log in to access the dashboards available to you. <%= link_to 'Log in', login_path, data: { turbo: false } %>
+            Log in to access the dashboards available to you. <%= link_to 'Log in', login_path(referrer: request.referer), data: { turbo: false } %>
           <% end %>
       </div>
   </div>

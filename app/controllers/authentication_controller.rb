@@ -7,10 +7,8 @@ class AuthenticationController < ApplicationController
   # See Authentication concern for the methods used below.
 
   def login
-    redirect_url = request.referer || root_url
-
     start_new_session # Creates/updates user and set session cookie.
-    redirect_to redirect_url
+    redirect_to(params[:referrer].presence || root_url)
   end
 
   # This is used by specs to allow TestShibbolethHeaders middleware to set headers.
