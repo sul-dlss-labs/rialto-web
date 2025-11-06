@@ -25,19 +25,10 @@ module Authentication
   REMOTE_USER_HEADER = 'X-Remote-User'
 
   included do
-    # authentication will be called before require_authentication.
     # It will authenticate the user if there is a user.
     # This will be called for all controller actions.
-    # require_authentication will also be called for all controller actions,
-    # unless skipped with allow_unauthenticated_access.
-    before_action :authentication, :require_authentication, :set_current_groups
+    before_action :authentication, :set_current_groups
     helper_method :authenticated?, :current_user
-  end
-
-  class_methods do
-    def allow_unauthenticated_access(**)
-      skip_before_action :require_authentication, **
-    end
   end
 
   def current_user
@@ -47,7 +38,7 @@ module Authentication
   private
 
   def remote_user
-    return ENV.fetch('REMOTE_USER', nil) if Rails.env.development?
+    return ENV.fetch('REMOTE_USER', nil) if Rails.env.development? && cookies[:user_id]
 
     request.headers[REMOTE_USER_HEADER]
   end
@@ -63,13 +54,9 @@ module Authentication
   end
 
   def start_new_session?
-    return true if Rails.env.development? && remote_user
+    return true if Rails.env.development? && remote_user && cookies[:user_id]
 
     Rails.env.test? && user_attrs[:email_address].present?
-  end
-
-  def require_authentication
-    resume_session || request_authentication
   end
 
   def resume_session
@@ -78,19 +65,6 @@ module Authentication
 
   def set_current_groups
     Current.groups ||= groups_from_session
-  end
-
-  def request_authentication
-    # Always check that we have enough space in the cookie to store the full return URL.
-    #
-    # This situation typically occurs when we are scanned for vulnerabilities and a
-    # CRLF Injection attack is attempted, see https://www.geeksforgeeks.org/crlf-injection-attack/
-    session[:return_to_after_authenticating] = request.url if request.url.size < MAX_URL_SIZE
-    redirect_to main_app.login_path
-  end
-
-  def after_authentication_url
-    session.delete(:return_to_after_authenticating) || root_url
   end
 
   def start_new_session
@@ -112,7 +86,7 @@ module Authentication
 
   def development_user_attrs
     {
-      email_address: remote_user,
+      email_address: ENV.fetch('REMOTE_USER', 'test'),
       name: 'User',
       first_name: 'Test'
     }

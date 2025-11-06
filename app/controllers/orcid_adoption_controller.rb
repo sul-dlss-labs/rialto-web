@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 # Controller for the orcid dashboards
-class OrcidAdoptionController < ApplicationController
+class OrcidAdoptionController < PublicController
   before_action :require_turbo_frame, except: [:show]
-
-  skip_verify_authorized
 
   # main dashboard page, accessible to all users
   # use tab param to select which tab is active (default is overview)

@@ -3,7 +3,6 @@
 # Base controller from which all other controllers inherit
 class ApplicationController < ActionController::Base
   # By default, requires authentication for all controllers.
-  # To allow unauthenticated access, use the allow_unauthenticated_access method.
   # Also provides the current_user method.
   include Authentication
 

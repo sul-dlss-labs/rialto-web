@@ -2,16 +2,15 @@
 
 # Controller for login and logout.
 class AuthenticationController < ApplicationController
-  allow_unauthenticated_access only: %i[login test_login]
   skip_verify_authorized only: %i[login logout test_login]
 
   # See Authentication concern for the methods used below.
 
   def login
-    redirect_to root_url and return if Rails.env.development?
+    redirect_url = request.referer || root_url
 
     start_new_session # Creates/updates user and set session cookie.
-    redirect_to after_authentication_url
+    redirect_to redirect_url
   end
 
   # This is used by specs to allow TestShibbolethHeaders middleware to set headers.
@@ -28,6 +27,6 @@ class AuthenticationController < ApplicationController
   def logout
     terminate_session
 
-    redirect_to SHIBBOLETH_LOGOUT_PATH
+    Rails.env.development? ? redirect_to(root_path) : redirect_to(SHIBBOLETH_LOGOUT_PATH)
   end
 end
