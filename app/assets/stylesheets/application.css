@@ -8,3 +8,28 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+:root {
+  --hero-image-left-padding: 6.25rem;
+}
+
+.home-page-hero {
+  height: 368px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  padding: 0.625rem calc(var(--hero-image-left-padding)*2) 0.625rem var(--hero-image-left-padding);
+}
+
+.home-page-content {
+  padding-left: var(--hero-image-left-padding);
+  padding-right: var(--hero-image-left-padding);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 575.98px) {
+  .home-page-hero, .home-page-content {
+    --hero-image-left-padding: 0.5rem;
+  }
+}
