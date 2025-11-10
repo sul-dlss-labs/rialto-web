@@ -1,0 +1,9 @@
+# Test environment settings; can't rely on being able to reach external tableau services
+tableau:
+  base_url: http://localhost:3000
+
+dashboard:
+  orcid_adoption:
+    stanford_overview: http://localhost:3000
+    schools_and_departments: http://localhost:3000
+    individual_researchers: http://localhost:3000

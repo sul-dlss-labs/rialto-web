@@ -25,6 +25,6 @@ class AuthenticationController < ApplicationController
   def logout
     terminate_session
 
-    Rails.env.development? ? redirect_to(root_path) : redirect_to(SHIBBOLETH_LOGOUT_PATH)
+    Rails.env.local? ? redirect_to(root_path) : redirect_to(SHIBBOLETH_LOGOUT_PATH)
   end
 end

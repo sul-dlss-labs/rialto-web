@@ -6,7 +6,7 @@
                 <tableau-viz
                     id='tableau-viz'
                     src='<%= embed_url %>'
-                    <% if token && !Rails.env.development? %> token='<%= token %>'<% end %>
+                    <% if token && !Rails.env.local? %> token='<%= token %>'<% end %>
                     width='<%= width %>' height='<%= height %>'
                     toolbar='hidden'>
                 </tableau-viz>
