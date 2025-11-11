@@ -49,7 +49,9 @@
 
     <%= render FlashComponent.new(flash:) %>
 
-    <%= yield %>
+    <div class="container mb-auto flex-1">
+      <%= yield %>
+    </div>
 
     <%= render FooterComponent.new %>
 
