@@ -115,25 +115,27 @@
         </div>
         <% if current_page?(root_path) # home page hero image %>
           <div class="d-flex align-items-center justify-content-start home-page-hero" style="background-image: url(<%= hero_image %>);">
-            <div class="container bg-white p-3 rounded mx-0" style="width: 500px; max-width: 100%;  box-shadow: 0px 4px 4px 0px #00000040;">
-              <div class="row">
-                <h4>Quick links</h4>
-                <div class="col-6">
-                  <p><strong>Research intelligence dashboards</strong><br>
-                  <em>Visualizing Stanford publications and research data</em></p>
-                </div>
-                <div class="col-6">
-                  <div class="d-flex flex-column gap-2">
-                    <%= link_to orcid_adoption_dashboard_path, class: 'link-primary text-decoration-underline' do %>
-                      <i class="bi bi-box-arrow-up-right me-1"></i> ORCID iD Adoption
-                    <% end %>
-                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
-                      <i class="bi bi-box-arrow-up-right me-1"></i> Open Access
-                    <% end %>
-                    <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
-                      <i class="bi bi-box-arrow-up-right me-1"></i> Publications
-                    <% end %>
+            <div class="container">
+              <div class="container bg-white p-3 rounded mx-0" style="width: 500px; max-width: 100%;  box-shadow: 0px 4px 4px 0px #00000040;">
+                <div class="row">
+                  <h4>Quick links</h4>
+                  <div class="col-6">
+                    <p><strong>Research intelligence dashboards</strong><br>
+                    <em>Visualizing Stanford publications and research data</em></p>
                   </div>
+                  <div class="col-6">
+                    <div class="d-flex flex-column gap-2">
+                      <%= link_to orcid_adoption_dashboard_path, class: 'link-primary text-decoration-underline' do %>
+                        <i class="bi bi-box-arrow-up-right me-1"></i> ORCID iD Adoption
+                      <% end %>
+                      <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Open Access
+                      <% end %>
+                      <%= link_to '#', class: 'link-primary text-decoration-underline' do %>
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Publications
+                      <% end %>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
