@@ -1,4 +1,9 @@
 <turbo-frame id="<%= turbo_frame_id %>">
+    <div class="text-end mb-3">
+        <%= link_to Settings.dashboard.help_url, class: 'text-end link-primary text-decoration-underline' do %>
+            <i class="bi bi-box-arrow-up-right me-1"></i> Questions? Read the Dashboard FAQ and Documentation
+        <% end %>
+    </div>
     <% if authorized? %>
         <div class="row">
             <div class="col-12">
@@ -7,8 +12,7 @@
                     id='tableau-viz'
                     src='<%= embed_url %>'
                     <% if token && !Rails.env.local? %> token='<%= token %>'<% end %>
-                    width='<%= width %>' height='<%= height %>'
-                    toolbar='hidden'>
+                    toolbar='top'>
                 </tableau-viz>
             </div>
         </div>

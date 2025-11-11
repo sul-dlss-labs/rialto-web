@@ -12,14 +12,6 @@ class DashboardEmbedComponent < ApplicationComponent
     @turbo_frame_id = turbo_frame_id
   end
 
-  def width
-    '100%'
-  end
-
-  def height
-    '1200'
-  end
-
   def authorized?
     @authorized
   end
