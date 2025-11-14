@@ -1,12 +1,24 @@
 # frozen_string_literal: true
 
-# Controller for the orcid dashboards
-class OrcidAdoptionController < PublicController
+# PublicationsController
+class PublicationsController < PublicController
   # the stanford overview dashboard embedded view (all users) -
   # turbo frame loaded only when tab is selected
   def stanford_overview
     render DashboardEmbedComponent.new(embed_url:,
                                        turbo_frame_id:, authorized: true)
+  end
+
+  def type_overview
+    render DashboardEmbedComponent.new(embed_url:,
+                                       turbo_frame_id:, token:,
+                                       authorized: stanford_access?)
+  end
+
+  def school_details
+    render DashboardEmbedComponent.new(embed_url:,
+                                       turbo_frame_id:, token:,
+                                       authorized: stanford_access?)
   end
 
   # the schools and departments dashboard embedded view (stanford users only) -
@@ -15,19 +27,5 @@ class OrcidAdoptionController < PublicController
     render DashboardEmbedComponent.new(embed_url:,
                                        turbo_frame_id:, token:,
                                        authorized: stanford_access?)
-  end
-
-  # the individual researchers dashboard embedded view (workgroup users only) -
-  # turbo frame loaded only when tab is selected
-  def researcher_details
-    render DashboardEmbedComponent.new(embed_url:,
-                                       turbo_frame_id:, token:,
-                                       authorized: business_access?)
-  end
-
-  private
-
-  def dashboard_name
-    'ORCIDAdoption'
   end
 end

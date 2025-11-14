@@ -20,9 +20,23 @@ Rails.application.routes.draw do
   root 'home#show'
 
   get 'orcid-adoption', to: 'orcid_adoption#show', as: 'orcid_adoption_dashboard'
-  get 'orcid-adoption/stanford-overview', to: 'orcid_adoption#stanford_overview', as: 'orcid_adoption_stanford_overview'
-  get 'orcid-adoption/schools-and-departments', to: 'orcid_adoption#schools_and_departments',
-                                                as: 'orcid_adoption_schools_and_departments'
-  get 'orcid-adoption/individual-researchers', to: 'orcid_adoption#individual_researchers',
-                                               as: 'orcid_adoption_researchers'
+
+  Settings.tabs.orcid_adoption.to_h.each_key do |tab_name|
+    method_name = tab_name.to_s.tr('-', '_')
+    get "/orcid-adoption/#{tab_name}", to: "orcid_adoption##{method_name}", as: "orcid_adoption_#{method_name}"
+  end
+
+  # open access routes
+  get 'open-access', to: 'open_access#show', as: 'open_access_dashboard'
+  Settings.tabs.open_access.to_h.each_key do |tab_name|
+    method_name = tab_name.to_s.tr('-', '_')
+    get "/open-access/#{tab_name}", to: "open_access##{method_name}", as: "open_access_#{method_name}"
+  end
+
+  # publication routes
+  get 'publications', to: 'publications#show', as: 'publications_dashboard'
+  Settings.tabs.publications.to_h.each_key do |tab_name|
+    method_name = tab_name.to_s.tr('-', '_')
+    get "/publications/#{tab_name}", to: "publications##{method_name}", as: "publications_#{method_name}"
+  end
 end
